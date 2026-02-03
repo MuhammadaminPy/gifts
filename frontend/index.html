@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Casino Bot</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- Loader -->
+        <div id="loader" class="loader">
+            <div class="loader-spinner"></div>
+        </div>
+
+        <!-- Main Container -->
+        <div id="main-container" class="container" style="display: none;">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <div class="user-avatar">
+                        <img id="user-avatar" src="" alt="Avatar">
+                    </div>
+                    <div class="user-info">
+                        <span id="user-name" class="user-name">Loading...</span>
+                        <span id="user-rank" class="user-rank">Rank: 0</span>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="balance-container">
+                        <div class="ton-icon">💎</div>
+                        <span id="balance" class="balance">0.00</span>
+                        <button id="add-balance-btn" class="add-btn">+</button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <main id="content-area" class="content-area">
+                <!-- Будет заполняться динамически -->
+            </main>
+
+            <!-- Bottom Navigation -->
+            <nav class="bottom-nav">
+                <button class="nav-btn active" data-page="games">
+                    <span class="nav-icon">🎮</span>
+                    <span class="nav-label">Игры</span>
+                </button>
+                <button class="nav-btn" data-page="leaderboard">
+                    <span class="nav-icon">🏆</span>
+                    <span class="nav-label">Лидерборд</span>
+                </button>
+                <button class="nav-btn" data-page="profile">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-label">Профиль</span>
+                </button>
+            </nav>
+        </div>
+
+        <!-- Modals -->
+        <div id="deposit-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>💰 Пополнение баланса</h2>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="deposit-methods">
+                        <button class="deposit-method" data-method="ton">
+                            <div class="method-icon">💎</div>
+                            <div class="method-name">TON Wallet</div>
+                        </button>
+                        <button class="deposit-method" data-method="stars">
+                            <div class="method-icon">⭐</div>
+                            <div class="method-name">Telegram Stars</div>
+                        </button>
+                    </div>
+                    <div id="deposit-form" style="display: none;">
+                        <input type="number" id="deposit-amount" placeholder="Сумма в TON" step="0.01" min="0.1">
+                        <button id="confirm-deposit" class="btn-primary">Пополнить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="withdraw-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>💸 Вывод средств</h2>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-info">Минимальная сумма вывода: 10 TON</p>
+                    <input type="number" id="withdraw-amount" placeholder="Сумма вывода" step="0.01" min="10">
+                    <input type="text" id="withdraw-wallet" placeholder="Адрес TON кошелька">
+                    <button id="confirm-withdraw" class="btn-primary">Создать заявку</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="referral-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>👥 Реферальная программа</h2>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="ref-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Приглашено</div>
+                            <div class="stat-value" id="ref-count">0</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Заработано</div>
+                            <div class="stat-value" id="ref-earned">0 TON</div>
+                        </div>
+                    </div>
+                    <div class="ref-balance">
+                        <div class="ref-balance-label">Реферальный баланс</div>
+                        <div class="ref-balance-value" id="ref-balance">0 TON</div>
+                        <button id="transfer-ref-balance" class="btn-primary">Перевести на основной баланс</button>
+                        <p class="ref-note">Минимум для перевода: 3 TON</p>
+                    </div>
+                    <div class="ref-link-container">
+                        <input type="text" id="ref-link" readonly>
+                        <button id="copy-ref-link" class="btn-secondary">Копировать</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="item-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="item-name">Item</h2>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="item-image">
+                        <img id="item-image" src="" alt="Item">
+                    </div>
+                    <div class="item-value">
+                        <span>Стоимость:</span>
+                        <span id="item-value">0 TON</span>
+                    </div>
+                    <div class="item-actions">
+                        <button id="sell-item" class="btn-primary">Продать</button>
+                        <button id="withdraw-item" class="btn-secondary">Вывести</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="static/js/config.js"></script>
+    <script src="static/js/api.js"></script>
+    <script src="static/js/ui.js"></script>
+    <script src="static/js/games/gift-upgrade.js"></script>
+    <script src="static/js/games/rolls.js"></script>
+    <script src="static/js/games/mutants.js"></script>
+    <script src="static/js/app.js"></script>
+</body>
+</html>
