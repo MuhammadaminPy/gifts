@@ -1,14 +1,14 @@
 // Конфигурация приложения
 const CONFIG = {
     // API endpoint - замените на свой URL после деплоя
-    API_URL: 'https://your-backend-url.com',
+    API_URL: 'https://muhammadaminpy.github.io/gifts/frontend/index.html',
     
     // Telegram Bot username
-    BOT_USERNAME: 'YourBotUsername',
+    BOT_USERNAME: 'diggercrash_bot',
     
     // TON Connect настройки
     TON_CONNECT: {
-        manifestUrl: 'https://your-github-pages.github.io/tonconnect-manifest.json'
+        manifestUrl: 'https://muhammadaminpy.github.io/gifts/tonconnect-manifest.json'
     },
     
     // Настройки игр

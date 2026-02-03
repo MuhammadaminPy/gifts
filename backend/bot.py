@@ -1,5 +1,10 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import os
 import logging
+
 from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters import Command
 from aiogram.types import WebAppInfo, InlineKeyboardMarkup, InlineKeyboardButton
@@ -13,9 +18,9 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Токены и настройки
-BOT_TOKEN = os.getenv('BOT_TOKEN', 'YOUR_BOT_TOKEN')
-WEBAPP_URL = os.getenv('WEBAPP_URL', 'https://your-github-pages-url.github.io')
-ADMIN_ID = int(os.getenv('ADMIN_ID', '0'))
+BOT_TOKEN = os.getenv('BOT_TOKEN', '8225194538:AAEKTqILgaA5yRgAdtFtWxRZ8bbaFsMw39A')
+WEBAPP_URL = os.getenv('WEBAPP_URL', 'https://muhammadaminpy.github.io/gifts/frontend/index.html')
+ADMIN_ID = int(os.getenv('ADMIN_ID', '1027715401'))
 WEBHOOK_PATH = f'/bot/{BOT_TOKEN}'
 WEBHOOK_URL = os.getenv('WEBHOOK_URL', '')  # URL вашего сервера для webhook
 
